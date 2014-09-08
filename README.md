@@ -1,7 +1,7 @@
 RateMyApp
 =====================
 
-RateMyApp is a class to provide gentle reminders to app user to rate your app, its written entirely in swift
+RateMyApp is a class to provide gentle reminders for app users to rate your app, written completely in swift
 ----------------------------------
 **Features:**
 >  1) Easy setup
