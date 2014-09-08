@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         rate.alertCancelTitle = "cancel"
         rate.alertRemindLaterTitle = "remind later"
         
-        rate.showRatingAlert()
+        
     }
 
     override func didReceiveMemoryWarning() {

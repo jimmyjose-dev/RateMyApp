@@ -42,8 +42,8 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     private let kRemindLater            = "kRemindLater"
     private let kRemindLaterPressedDate	= "kRemindLaterPressedDate"
     
-    private var reviewURL = "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=APP_ID"
-    private var reviewURLiOS7 = "itms-apps://itunes.apple.com/app/idAPP_ID"
+    private var reviewURL = "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id="
+    private var reviewURLiOS7 = "itms-apps://itunes.apple.com/app/id"
     
     
     var promptAfterDays:Double = 30
@@ -57,6 +57,8 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     var alertCancelTitle = ""
     var alertRateTitle = ""
     var alertRemindLaterTitle = ""
+    var appID = ""
+    
     
     class var sharedInstance : RateMyApp {
     struct Static {
@@ -66,14 +68,14 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     }
     
     
-     private override init(){
+    private override init(){
         
         super.init()
         
         
     }
     
-     internal required init(coder aDecoder: NSCoder) {
+    internal required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -197,18 +199,14 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
                 return true
             }
             
-            
         }
         
-        
-        
         return false
-        
         
     }
     
     
-    func showRatingAlert(){
+    private func showRatingAlert(){
         
         
         if(!hasOS8()) {
@@ -233,7 +231,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
             }))
             
             alert.addAction(UIAlertAction(title: alertRemindLaterTitle, style:.Default, handler: { alertAction in
-               self.remindLaterButtonPressed()
+                self.remindLaterButtonPressed()
                 alert.dismissViewControllerAnimated(true, completion: nil)
             }))
             
@@ -242,22 +240,22 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
     }
     
-   internal func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
-    
-        println(buttonIndex)
-    
-    if(buttonIndex == 0){
-    
-        okButtonPressed()
-    }else if(buttonIndex == 1){
-    
-        cancelButtonPressed()
-    }else if(buttonIndex == 2){
+    internal func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
         
-        remindLaterButtonPressed()
-    }
-    alertView.dismissWithClickedButtonIndex(buttonIndex, animated: true)
-    
+        println(buttonIndex)
+        
+        if(buttonIndex == 0){
+            
+            okButtonPressed()
+        }else if(buttonIndex == 1){
+            
+            cancelButtonPressed()
+        }else if(buttonIndex == 2){
+            
+            remindLaterButtonPressed()
+        }
+        alertView.dismissWithClickedButtonIndex(buttonIndex, animated: true)
+        
     }
     
     private func deviceOSVersion() -> Float{
@@ -272,21 +270,21 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     }
     
     private func hasOS8()->Bool{
-    
-        if(deviceOSVersion() < 8.0) {
         
+        if(deviceOSVersion() < 8.0) {
+            
             return false
         }
         
         return true
-    
+        
     }
     
     private func okButtonPressed(){
         
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidRateVersion)
         
-        var appStoreURL = NSURL.URLWithString(reviewURLiOS7)
+        var appStoreURL = NSURL.URLWithString(reviewURLiOS7+appID)
         
         UIApplication.sharedApplication().openURL(appStoreURL)
         
