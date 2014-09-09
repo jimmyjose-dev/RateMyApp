@@ -15,13 +15,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         var rate = RateMyApp.sharedInstance
-        
-        rate.alertTitle = "asdasda"
-        rate.alertMessage = "message"
-        rate.alertOKTitle = "OK"
-        rate.alertCancelTitle = "cancel"
-        rate.alertRemindLaterTitle = "remind later"
-        
+        rate.appID = "123456"
+        rate.trackAppUsage()
         
     }
 
