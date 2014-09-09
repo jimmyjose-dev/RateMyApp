@@ -8,6 +8,23 @@ RateMyApp is a class to provide gentle reminders for app user to rate your app, 
 >  
 >  2) Supports iOS7 & iOS8
 
+Screenshot
+==========
+
+![Screenshot](http://imgur.com/yVVJVtW.png)
+
+----------
+
+
+Sample code
+-----------
+
+**Three lines and you are done**
+
+    var rate = RateMyApp.sharedInstance
+    rate.appID = "123456"
+    rate.trackAppUsage()
+    
 ----------
 
 Roadmap

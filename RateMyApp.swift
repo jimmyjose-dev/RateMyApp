@@ -177,24 +177,16 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
         if(usageCount >= promptAfterUses)
         {
-            println(usageCount)
-            println(promptAfterUses)
             return true
         }
         
         if(daysCount >= promptAfterDays)
         {
-            println(daysCount)
-            println(promptAfterDays)
-            
             return true
         }
         
         if(eventsCount >= promptAfterCustomEventsCount)
-        {println("events")
-            println(eventsCount)
-            println(eventsCount)
-            
+        {
             return true
         }
         
@@ -208,9 +200,6 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
             
             if(remindLaterDaysCount >= daysBeforeReminding)
             {
-                println(usageCount)
-                println(promptAfterUses)
-                
                 return true
             }
             
