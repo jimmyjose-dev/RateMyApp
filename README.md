@@ -30,7 +30,6 @@ Sample code
 Roadmap
 ---------------
 
- - Complete the demo
  - Add customisation options
 
 ----------
