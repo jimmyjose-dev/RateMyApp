@@ -15,8 +15,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         var rate = RateMyApp.sharedInstance
-        rate.appID = "123456"
+        rate.appID = "857846130"
         rate.trackAppUsage()
+        
         
     }
 
