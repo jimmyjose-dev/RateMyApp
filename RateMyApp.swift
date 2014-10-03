@@ -108,7 +108,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
         var trackingAppVersion = prefs.objectForKey(kTrackingAppVersion) as? NSString
         
-        if((trackingAppVersion == nil) || !(getCurrentAppVersion().isEqualToString(trackingAppVersion)))
+        if((trackingAppVersion == nil) || !(getCurrentAppVersion().isEqualToString(trackingAppVersion!)))
         {
             return true
         }
