@@ -45,11 +45,11 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     var promptAfterCustomEventsCount = 10
     var daysBeforeReminding:Double = 1
     
-    var alertTitle = "Rate my app"
+    var alertTitle = NSLocalizedString("Rate the app", comment: "RateMyApp")
     var alertMessage = ""
-    var alertOKTitle = "Rate it now"
-    var alertCancelTitle = "Don't bother me again"
-    var alertRemindLaterTitle = "Remind me later"
+    var alertOKTitle = NSLocalizedString("Rate it now", comment: "RateMyApp")
+    var alertCancelTitle = NSLocalizedString("Don't bother me again", comment: "RateMyApp")
+    var alertRemindLaterTitle = NSLocalizedString("Remind me later", comment: "RateMyApp")
     var appID = ""
     
     
