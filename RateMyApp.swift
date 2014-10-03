@@ -214,7 +214,8 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
         var appname = (NSBundle.mainBundle().infoDictionary as NSDictionary).objectForKey("CFBundleName") as NSString
         
-        var message = "If you found \(appname) useful, please take a momemnt to rate it"
+        var message = NSLocalizedString("If you found %@ useful, please take a moment to rate it", comment: "RateMyApp")
+        message = String(format:message, appname)
         
         if(countElements(alertMessage) == 0)
         {
