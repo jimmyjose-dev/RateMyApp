@@ -282,7 +282,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     
     private func deviceOSVersion() -> Float{
         
-        var device : UIDevice = UIDevice.currentDevice()!;
+        var device : UIDevice = UIDevice.currentDevice();
         var systemVersion = device.systemVersion;
         var iOSVerion : Float = (systemVersion as NSString).floatValue
         
