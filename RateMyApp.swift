@@ -45,11 +45,11 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     var promptAfterCustomEventsCount = 10
     var daysBeforeReminding:Double = 1
     
-    var alertTitle = "Rate my app"
+    var alertTitle = NSLocalizedString("Rate the app", comment: "RateMyApp")
     var alertMessage = ""
-    var alertOKTitle = "Rate it now"
-    var alertCancelTitle = "Don't bother me again"
-    var alertRemindLaterTitle = "Remind me later"
+    var alertOKTitle = NSLocalizedString("Rate it now", comment: "RateMyApp")
+    var alertCancelTitle = NSLocalizedString("Don't bother me again", comment: "RateMyApp")
+    var alertRemindLaterTitle = NSLocalizedString("Remind me later", comment: "RateMyApp")
     var appID = ""
     
     
@@ -108,7 +108,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
         var trackingAppVersion = prefs.objectForKey(kTrackingAppVersion) as? NSString
         
-        if((trackingAppVersion == nil) || !(getCurrentAppVersion().isEqualToString(trackingAppVersion)))
+        if((trackingAppVersion == nil) || !(getCurrentAppVersion().isEqualToString(trackingAppVersion!)))
         {
             return true
         }
@@ -214,7 +214,8 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
         var appname = (NSBundle.mainBundle().infoDictionary as NSDictionary).objectForKey("CFBundleName") as NSString
         
-        var message = "If you found \(appname) useful, please take a momemnt to rate it"
+        var message = NSLocalizedString("If you found %@ useful, please take a moment to rate it", comment: "RateMyApp")
+        message = String(format:message, appname)
         
         if(countElements(alertMessage) == 0)
         {
@@ -251,8 +252,12 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
                 self.remindLaterButtonPressed()
                 alert.dismissViewControllerAnimated(true, completion: nil)
             }))
-            
-            self.presentViewController(alert, animated: true, completion: nil)
+
+            var controller = UIApplication.sharedApplication().keyWindow.rootViewController;
+            while(( controller?.presentedViewController ) != nil) {
+                controller = controller?.presentedViewController;
+            }
+            controller?.presentViewController(alert, animated: true, completion: nil);           
         }
         
     }
@@ -278,7 +283,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     
     private func deviceOSVersion() -> Float{
         
-        var device : UIDevice = UIDevice.currentDevice()!;
+        var device : UIDevice = UIDevice.currentDevice();
         var systemVersion = device.systemVersion;
         var iOSVerion : Float = (systemVersion as NSString).floatValue
         
