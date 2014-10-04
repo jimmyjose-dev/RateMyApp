@@ -33,6 +33,29 @@ Roadmap
  - Add customisation options
 
 ----------
+
+Other Repos you might like
+--------------------------
+
+1) https://github.com/varshylmobile/LocationManager
+
+> CLLocationManager wrapper in Swift, performs location update,
+> geocoding and reverse geocoding using Apple and Google service
+> 
+
+2) https://github.com/varshylmobile/MapManager
+
+> Map manager is a MapKit wrapper in Swift to provide route direction
+> drawing
+
+3) https://github.com/varshylmobile/VMXMLParser
+
+> NSXMLParser wrapper in Swift
+
+4) https://github.com/varshylmobile/TableViewCellFlip
+
+> Vertical and Horizontal flip animation for table view cell
+
 Contact Us
 ---------------
 
