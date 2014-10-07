@@ -246,12 +246,12 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
                 self.remindLaterButtonPressed()
                 alert.dismissViewControllerAnimated(true, completion: nil)
             }))
-
+            
             var controller = UIApplication.sharedApplication().keyWindow.rootViewController;
-            while(( controller?.presentedViewController ) != nil) {
-                controller = controller?.presentedViewController;
-            }
-            controller?.presentViewController(alert, animated: true, completion: nil);           
+            
+            controller?.presentViewController(alert, animated: true, completion: nil);
+            
+            
         }
         
     }

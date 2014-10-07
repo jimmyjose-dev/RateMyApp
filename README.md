@@ -31,8 +31,6 @@ Contributors
 ---------------
 ***All contributors will receive virtual high fives from me and for the heck of it lets forget you are a south paw***
 
-
-
 ![enter image description here](https://dl.dropbox.com/s/n32dq4fle8fh7l4/internet-high-five.jpg)
 
 Please see commit log for changes they provided
