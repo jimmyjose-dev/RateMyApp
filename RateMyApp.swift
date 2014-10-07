@@ -173,7 +173,16 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
             return false
         }
         
-        
+        if(hasChosenRemindLater)
+        {
+            var remindLaterDate = prefs.objectForKey(kFirstUseDate) as NSDate
+            
+            var timeInterval = NSDate().timeIntervalSinceDate(remindLaterDate)
+            
+            var remindLaterDaysCount = ((timeInterval / 3600) / 24)
+            
+            return (remindLaterDaysCount >= daysBeforeReminding)
+        }
         
         if(usageCount >= promptAfterUses)
         {
@@ -188,21 +197,6 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         if(eventsCount >= promptAfterCustomEventsCount)
         {
             return true
-        }
-        
-        if(hasChosenRemindLater)
-        {
-            var remindLaterDate = prefs.objectForKey(kFirstUseDate) as NSDate
-            
-            var timeInterval = NSDate().timeIntervalSinceDate(remindLaterDate)
-            
-            var remindLaterDaysCount = ((timeInterval / 3600) / 24)
-            
-            if(remindLaterDaysCount >= daysBeforeReminding)
-            {
-                return true
-            }
-            
         }
         
         return false
