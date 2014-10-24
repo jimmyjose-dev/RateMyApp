@@ -206,7 +206,8 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     
     private func showRatingAlert(){
         
-        var appname = (NSBundle.mainBundle().infoDictionary as NSDictionary).objectForKey("CFBundleName") as NSString
+        var infoDocs : NSDictionary = NSBundle.mainBundle().infoDictionary!
+        var appname : NSString = infoDocs.objectForKey("CFBundleName") as NSString
         
         var message = NSLocalizedString("If you found %@ useful, please take a moment to rate it", comment: "RateMyApp")
         message = String(format:message, appname)
@@ -247,9 +248,9 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
                 alert.dismissViewControllerAnimated(true, completion: nil)
             }))
             
-            var controller = UIApplication.sharedApplication().keyWindow.rootViewController;
+            var controller = UIApplication.sharedApplication().keyWindow!.rootViewController
             
-            controller?.presentViewController(alert, animated: true, completion: nil);
+            controller?.presentViewController(alert, animated: true, completion: nil)
             
             
         }
@@ -296,12 +297,10 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     }
     
     private func okButtonPressed(){
-        
+    
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidRateVersion)
-        
-        var appStoreURL = NSURL.URLWithString(reviewURLiOS7+appID)
-        
-        UIApplication.sharedApplication().openURL(appStoreURL)
+        var appStoreURL = NSURL(string:reviewURLiOS7+appID)
+        UIApplication.sharedApplication().openURL(appStoreURL!)
         
     }
     
