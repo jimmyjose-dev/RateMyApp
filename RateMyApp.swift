@@ -248,7 +248,8 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
                 alert.dismissViewControllerAnimated(true, completion: nil)
             }))
             
-            var controller = UIApplication.sharedApplication().keyWindow!.rootViewController
+            let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            var controller = appDelegate.window?.rootViewController
             
             controller?.presentViewController(alert, animated: true, completion: nil)
             
