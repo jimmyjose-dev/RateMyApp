@@ -61,11 +61,11 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     }
     
     
-    private override init(){
-        
-        super.init()
-        
-    }
+//    private override init(){
+//        
+//        super.init()
+//        
+//    }
     
     internal required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -108,7 +108,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
         var trackingAppVersion = prefs.objectForKey(kTrackingAppVersion) as? NSString
         
-        if((trackingAppVersion == nil) || !(getCurrentAppVersion().isEqualToString(trackingAppVersion!)))
+        if((trackingAppVersion == nil) || !(getCurrentAppVersion().isEqualToString(trackingAppVersion! as String)))
         {
             return true
         }
@@ -119,7 +119,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     
     private func incrementValueForKey(#name:String){
         
-        if(countElements(appID) == 0)
+        if(count(appID) == 0)
         {
             fatalError("Set iTunes connect appID to proceed, you may enter some random string for testing purpose. See line number 59")
         }
@@ -151,7 +151,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         var usageCount = prefs.integerForKey(kAppUseCount)
         var eventsCount = prefs.integerForKey(kSpecialEventCount)
         
-        var firstUse = prefs.objectForKey(kFirstUseDate) as NSDate
+        var firstUse = prefs.objectForKey(kFirstUseDate) as! NSDate
         
         var timeInterval = NSDate().timeIntervalSinceDate(firstUse)
         
@@ -175,7 +175,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
         if(hasChosenRemindLater)
         {
-            var remindLaterDate = prefs.objectForKey(kFirstUseDate) as NSDate
+            var remindLaterDate = prefs.objectForKey(kFirstUseDate) as! NSDate
             
             var timeInterval = NSDate().timeIntervalSinceDate(remindLaterDate)
             
@@ -207,12 +207,12 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     private func showRatingAlert(){
         
         var infoDocs : NSDictionary = NSBundle.mainBundle().infoDictionary!
-        var appname : NSString = infoDocs.objectForKey("CFBundleName") as NSString
+        var appname : NSString = infoDocs.objectForKey("CFBundleName") as! NSString
         
         var message = NSLocalizedString("If you found %@ useful, please take a moment to rate it", comment: "RateMyApp")
         message = String(format:message, appname)
         
-        if(countElements(alertMessage) == 0)
+        if(count(alertMessage) == 0)
         {
             alertMessage = message
         }
@@ -248,7 +248,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
                 alert.dismissViewControllerAnimated(true, completion: nil)
             }))
             
-            let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             var controller = appDelegate.window?.rootViewController
             
             controller?.presentViewController(alert, animated: true, completion: nil)
@@ -258,7 +258,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
     }
     
-    internal func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int){
+    internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int){
         
         if(buttonIndex == 0)
         {
@@ -320,7 +320,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     
     private func getCurrentAppVersion()->NSString{
         
-        return (NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as NSString)
+        return (NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! NSString)
         
     }
     
