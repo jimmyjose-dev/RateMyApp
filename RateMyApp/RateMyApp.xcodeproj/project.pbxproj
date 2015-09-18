@@ -156,6 +156,8 @@
 		BF5D184819BD939C00FA08CD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Varshyl Mobile Pvt. Ltd.";
 				TargetAttributes = {
