@@ -14,7 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        var rate = RateMyApp.sharedInstance
+        let rate = RateMyApp.sharedInstance
         rate.appID = "857846130"
         
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
