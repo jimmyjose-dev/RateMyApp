@@ -6,7 +6,7 @@ RateMyApp is a class to provide gentle reminders for app user to rate your app, 
 **Features:**
 >  1) Easy setup
 >  
->  2) Supports iOS7 & iOS8
+>  2) Supports iOS 9.0.1 and Swift 2.0
 
 Screenshot
 ==========
