@@ -175,7 +175,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
         if(hasChosenRemindLater)
         {
-            let remindLaterDate = prefs.objectForKey(kFirstUseDate) as! NSDate
+            let remindLaterDate = prefs.objectForKey(kRemindLaterPressedDate) as! NSDate
             
             let timeInterval = NSDate().timeIntervalSinceDate(remindLaterDate)
             
