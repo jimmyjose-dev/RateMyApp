@@ -17,8 +17,8 @@ class ViewController: UIViewController {
         let rate = RateMyApp.sharedInstance
         rate.appID = "857846130"
         
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-        rate.trackAppUsage()
+        DispatchQueue.main.async(execute: { () -> Void in
+            rate.trackAppUsage()
         })
     
         

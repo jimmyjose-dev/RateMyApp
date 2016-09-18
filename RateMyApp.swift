@@ -27,17 +27,17 @@ import UIKit
 
 class RateMyApp : UIViewController,UIAlertViewDelegate{
     
-    private let kTrackingAppVersion     = "kRateMyApp_TrackingAppVersion"
-    private let kFirstUseDate			= "kRateMyApp_FirstUseDate"
-    private let kAppUseCount			= "kRateMyApp_AppUseCount"
-    private let kSpecialEventCount		= "kRateMyApp_SpecialEventCount"
-    private let kDidRateVersion         = "kRateMyApp_DidRateVersion"
-    private let kDeclinedToRate			= "kRateMyApp_DeclinedToRate"
-    private let kRemindLater            = "kRateMyApp_RemindLater"
-    private let kRemindLaterPressedDate	= "kRateMyApp_RemindLaterPressedDate"
+    fileprivate let kTrackingAppVersion     = "kRateMyApp_TrackingAppVersion"
+    fileprivate let kFirstUseDate			= "kRateMyApp_FirstUseDate"
+    fileprivate let kAppUseCount			= "kRateMyApp_AppUseCount"
+    fileprivate let kSpecialEventCount		= "kRateMyApp_SpecialEventCount"
+    fileprivate let kDidRateVersion         = "kRateMyApp_DidRateVersion"
+    fileprivate let kDeclinedToRate			= "kRateMyApp_DeclinedToRate"
+    fileprivate let kRemindLater            = "kRateMyApp_RemindLater"
+    fileprivate let kRemindLaterPressedDate	= "kRateMyApp_RemindLaterPressedDate"
     
-    private var reviewURL = "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id="
-    private var reviewURLiOS7 = "itms-apps://itunes.apple.com/app/id"
+    fileprivate var reviewURL = "itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id="
+    fileprivate var reviewURLiOS7 = "itms-apps://itunes.apple.com/app/id"
     
     
     var promptAfterDays:Double = 30
@@ -71,22 +71,22 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         super.init(coder: aDecoder)
     }
     
-    private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    fileprivate override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
     }
     
-    private func initAllSettings(){
+    fileprivate func initAllSettings(){
         
-        let prefs = NSUserDefaults.standardUserDefaults()
+        let prefs = UserDefaults.standard
         
-        prefs.setObject(getCurrentAppVersion(), forKey: kTrackingAppVersion)
-        prefs.setObject(NSDate(), forKey: kFirstUseDate)
-        prefs.setInteger(1, forKey: kAppUseCount)
-        prefs.setInteger(0, forKey: kSpecialEventCount)
-        prefs.setBool(false, forKey: kDidRateVersion)
-        prefs.setBool(false, forKey: kDeclinedToRate)
-        prefs.setBool(false, forKey: kRemindLater)
+        prefs.set(getCurrentAppVersion(), forKey: kTrackingAppVersion)
+        prefs.set(Date(), forKey: kFirstUseDate)
+        prefs.set(1, forKey: kAppUseCount)
+        prefs.set(0, forKey: kSpecialEventCount)
+        prefs.set(false, forKey: kDidRateVersion)
+        prefs.set(false, forKey: kDeclinedToRate)
+        prefs.set(false, forKey: kRemindLater)
         
     }
     
@@ -102,13 +102,13 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
     }
     
-    private func isFirstTime()->Bool{
+    fileprivate func isFirstTime()->Bool{
         
-        let prefs = NSUserDefaults.standardUserDefaults()
+        let prefs = UserDefaults.standard
         
-        let trackingAppVersion = prefs.objectForKey(kTrackingAppVersion) as? NSString
+        let trackingAppVersion = prefs.object(forKey: kTrackingAppVersion) as? NSString
         
-        if((trackingAppVersion == nil) || !(getCurrentAppVersion().isEqualToString(trackingAppVersion! as String)))
+        if((trackingAppVersion == nil) || !(getCurrentAppVersion().isEqual(to: trackingAppVersion! as String)))
         {
             return true
         }
@@ -117,7 +117,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
     }
     
-    private func incrementValueForKey(name name:String){
+    fileprivate func incrementValueForKey(name:String){
         
         if(appID.characters.count == 0)
         {
@@ -131,9 +131,9 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         }
         else
         {
-            let prefs = NSUserDefaults.standardUserDefaults()
-            let currentCount = prefs.integerForKey(name)
-            prefs.setInteger(currentCount+1, forKey: name)
+            let prefs = UserDefaults.standard
+            let currentCount = prefs.integer(forKey: name)
+            prefs.set(currentCount+1, forKey: name)
             
         }
         
@@ -144,24 +144,24 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
     }
     
-    private func shouldShowAlert() -> Bool{
+    fileprivate func shouldShowAlert() -> Bool{
         
-        let prefs = NSUserDefaults.standardUserDefaults()
+        let prefs = UserDefaults.standard
         
-        let usageCount = prefs.integerForKey(kAppUseCount)
-        let eventsCount = prefs.integerForKey(kSpecialEventCount)
+        let usageCount = prefs.integer(forKey: kAppUseCount)
+        let eventsCount = prefs.integer(forKey: kSpecialEventCount)
         
-        let firstUse = prefs.objectForKey(kFirstUseDate) as! NSDate
+        let firstUse = prefs.object(forKey: kFirstUseDate) as! Date
         
-        let timeInterval = NSDate().timeIntervalSinceDate(firstUse)
+        let timeInterval = Date().timeIntervalSince(firstUse)
         
         let daysCount = ((timeInterval / 3600) / 24)
         
-        let hasRatedCurrentVersion = prefs.boolForKey(kDidRateVersion)
+        let hasRatedCurrentVersion = prefs.bool(forKey: kDidRateVersion)
         
-        let hasDeclinedToRate = prefs.boolForKey(kDeclinedToRate)
+        let hasDeclinedToRate = prefs.bool(forKey: kDeclinedToRate)
         
-        let hasChosenRemindLater = prefs.boolForKey(kRemindLater)
+        let hasChosenRemindLater = prefs.bool(forKey: kRemindLater)
         
         if(hasDeclinedToRate)
         {
@@ -175,9 +175,9 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
         if(hasChosenRemindLater)
         {
-            let remindLaterDate = prefs.objectForKey(kRemindLaterPressedDate) as! NSDate
+            let remindLaterDate = prefs.object(forKey: kRemindLaterPressedDate) as! Date
             
-            let timeInterval = NSDate().timeIntervalSinceDate(remindLaterDate)
+            let timeInterval = Date().timeIntervalSince(remindLaterDate)
             
             let remindLaterDaysCount = ((timeInterval / 3600) / 24)
             
@@ -204,10 +204,10 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     }
     
     
-    private func showRatingAlert(){
+    fileprivate func showRatingAlert(){
         
-        let infoDocs : NSDictionary = NSBundle.mainBundle().infoDictionary!
-        let appname : NSString = infoDocs.objectForKey("CFBundleName") as! NSString
+        let infoDocs : NSDictionary = Bundle.main.infoDictionary! as NSDictionary
+        let appname : NSString = infoDocs.object(forKey: "CFBundleName") as! NSString
         
         var message = NSLocalizedString("If you found %@ useful, please take a moment to rate it", comment: "RateMyApp")
         message = String(format:message, appname)
@@ -219,35 +219,35 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
         
         if #available(iOS 8.0, *) {
-            let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
             
             
-            alert.addAction(UIAlertAction(title: alertOKTitle, style:.Destructive, handler: { alertAction in
+            alert.addAction(UIAlertAction(title: alertOKTitle, style:.destructive, handler: { alertAction in
                 self.okButtonPressed()
-                alert.dismissViewControllerAnimated(true, completion: nil)
+                alert.dismiss(animated: true, completion: nil)
             }))
             
-            alert.addAction(UIAlertAction(title: alertCancelTitle, style:.Cancel, handler:{ alertAction in
+            alert.addAction(UIAlertAction(title: alertCancelTitle, style:.cancel, handler:{ alertAction in
                 self.cancelButtonPressed()
-                alert.dismissViewControllerAnimated(true, completion: nil)
+                alert.dismiss(animated: true, completion: nil)
             }))
             
-            alert.addAction(UIAlertAction(title: alertRemindLaterTitle, style:.Default, handler: { alertAction in
+            alert.addAction(UIAlertAction(title: alertRemindLaterTitle, style:.default, handler: { alertAction in
                 self.remindLaterButtonPressed()
-                alert.dismissViewControllerAnimated(true, completion: nil)
+                alert.dismiss(animated: true, completion: nil)
             }))
             
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let controller = appDelegate.window?.rootViewController
             
-            controller?.presentViewController(alert, animated: true, completion: nil)
+            controller?.present(alert, animated: true, completion: nil)
         } else {
             let alert = UIAlertView()
             alert.title = alertTitle
             alert.message = alertMessage
-            alert.addButtonWithTitle(alertCancelTitle)
-            alert.addButtonWithTitle(alertRemindLaterTitle)
-            alert.addButtonWithTitle(alertOKTitle)
+            alert.addButton(withTitle: alertCancelTitle)
+            alert.addButton(withTitle: alertRemindLaterTitle)
+            alert.addButton(withTitle: alertOKTitle)
             alert.delegate = self
             alert.show()
         }
@@ -255,7 +255,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
     }
     
-    internal func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int){
+    internal func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int){
         
         if(buttonIndex == 0)
         {
@@ -270,20 +270,20 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
             okButtonPressed()
         }
         
-        alertView.dismissWithClickedButtonIndex(buttonIndex, animated: true)
+        alertView.dismiss(withClickedButtonIndex: buttonIndex, animated: true)
         
     }
     
-    private func deviceOSVersion() -> Float{
+    fileprivate func deviceOSVersion() -> Float{
         
-        let device : UIDevice = UIDevice.currentDevice();
+        let device : UIDevice = UIDevice.current;
         let systemVersion = device.systemVersion;
         let iOSVerion : Float = (systemVersion as NSString).floatValue
         
         return iOSVerion
     }
     
-    private func hasOS8()->Bool{
+    fileprivate func hasOS8()->Bool{
         
         if(deviceOSVersion() < 8.0)
         {
@@ -294,30 +294,30 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         
     }
     
-    private func okButtonPressed(){
+    fileprivate func okButtonPressed(){
     
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDidRateVersion)
-        let appStoreURL = NSURL(string:reviewURLiOS7+appID)
-        UIApplication.sharedApplication().openURL(appStoreURL!)
+        UserDefaults.standard.set(true, forKey: kDidRateVersion)
+        let appStoreURL = URL(string:reviewURLiOS7+appID)
+        UIApplication.shared.openURL(appStoreURL!)
         
     }
     
-    private func cancelButtonPressed(){
+    fileprivate func cancelButtonPressed(){
         
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: kDeclinedToRate)
-        
-    }
-    
-    private func remindLaterButtonPressed(){
-        
-        NSUserDefaults.standardUserDefaults().setBool(true, forKey: kRemindLater)
-        NSUserDefaults.standardUserDefaults().setObject(NSDate(), forKey: kRemindLaterPressedDate)
+        UserDefaults.standard.set(true, forKey: kDeclinedToRate)
         
     }
     
-    private func getCurrentAppVersion()->NSString{
+    fileprivate func remindLaterButtonPressed(){
         
-        return (NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! NSString)
+        UserDefaults.standard.set(true, forKey: kRemindLater)
+        UserDefaults.standard.set(Date(), forKey: kRemindLaterPressedDate)
+        
+    }
+    
+    fileprivate func getCurrentAppVersion()->NSString{
+        
+        return (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! NSString)
         
     }
     
