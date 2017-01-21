@@ -51,7 +51,8 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     var alertCancelTitle = NSLocalizedString("Don't bother me again", comment: "RateMyApp")
     var alertRemindLaterTitle = NSLocalizedString("Remind me later", comment: "RateMyApp")
     var appID = ""
-    
+	
+	var debug = false
     
     class var sharedInstance : RateMyApp {
     struct Static {
@@ -145,7 +146,11 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     }
     
     fileprivate func shouldShowAlert() -> Bool{
-        
+		
+		if debug {
+			return true
+		}
+		
         let prefs = UserDefaults.standard
         
         let usageCount = prefs.integer(forKey: kAppUseCount)
