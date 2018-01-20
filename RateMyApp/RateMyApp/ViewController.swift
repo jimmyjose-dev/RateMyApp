@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         let rate = RateMyApp.sharedInstance
+		rate.debug = true
         rate.appID = "857846130"
         
         DispatchQueue.main.async(execute: { () -> Void in
