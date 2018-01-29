@@ -120,7 +120,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
     
     fileprivate func incrementValueForKey(name:String){
         
-        if(appID.characters.count == 0)
+        if(appID.count == 0)
         {
             fatalError("Set iTunes connect appID to proceed, you may enter some random string for testing purpose. See line number 59")
         }
@@ -217,7 +217,7 @@ class RateMyApp : UIViewController,UIAlertViewDelegate{
         var message = NSLocalizedString("If you found %@ useful, please take a moment to rate it", comment: "RateMyApp")
         message = String(format:message, appname)
         
-        if(alertMessage.characters.count == 0)
+        if(alertMessage.count == 0)
         {
             alertMessage = message
         }
